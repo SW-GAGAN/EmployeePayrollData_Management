@@ -76,9 +76,7 @@ mysql> SELECT * FROM employee_payroll;
 	----------------------------------
 		#UC7 FIND SUM AND AVG
 	----------------------------------
----------------------
-	UC7
----------------------
+
 mysql> SELECT AVG(salary) FROM employee_payroll WHERE gender = 'M' GROUP BY gender;
 +-------------+
 | AVG(salary) |
@@ -166,3 +164,47 @@ mysql> SELECT AVG(salary) FROM employee_payroll GROUP BY id;
 |     3000000 |
 +-------------+
 3 rows in set (0.00 sec)
+						----------------------------
+							ER DIAGRAM
+						----------------------------
+
+---------------------------------------------------------------------
+			  UC8
+##
+# Ability to extend employee_payroll data to
+# store employee information like employee phone, address
+# and department
+##
+--------------------------------------------------------------------
+#adding phonenumber column
+alter table employee_payroll add phonenumber varchar(45) not null;
+
+#adding phonenumbers to the employees
+update employee_payroll set phonenumber = '+91 8653291047'
+where name = 'Bill';
+
+update employee_payroll set phonenumber = '+66 7485910473'
+where name = 'Terisa';
+
+update employee_payroll set phonenumber = '+55 7542189608'
+where name = 'Charlie';
+
+#adding address column with default value
+alter table employee_payroll add address varchar(200) not null default 'UK'; 
+
+#adding addresses for employees
+update employee_payroll set address = 'Bill\'s address'
+where name = 'Bill';
+
+update employee_payroll set address = 'Terisa\'s address'
+where name = 'Terisa';
+
+update employee_payroll set address = 'Charlie\'s address'
+where name = 'Charlie';
+
+
+
+
+
+
+
