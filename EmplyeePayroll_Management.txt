@@ -203,6 +203,70 @@ update employee_payroll set address = 'Charlie\'s address'
 where name = 'Charlie';
 
 
+---------------------------------------------------------------------------------
+				UC9
+##
+# Ability to extend employee_payroll table to have Basic Pay,
+# Deductions, Taxable Pay, Income Tax, Net Pay
+##
+---------------------------------------------------------------------------------
+#changing salary to basic pay column
+alter table employee_payroll rename column salary to basic_pay;
+
+#adding deductions column
+alter table employee_payroll add deductions Double not null after basic_pay;
+
+update employee_payroll set deductions = 15000.00
+where name = 'Bill';
+
+update employee_payroll set deductions = 30000.00
+where name = 'Terisa';
+
+update employee_payroll set deductions = 45000.00
+where name = 'Charlie';
+
+#adding taxable_pay column
+alter table employee_payroll add taxable_pay Double not null after deductions;
+
+update employee_payroll set taxable_pay = 10000.00
+where name = 'Bill';
+
+update employee_payroll set taxable_pay = 20000.00
+where name = 'Terisa';
+
+update employee_payroll set taxable_pay = 30000.00
+where name = 'Charlie';
+
+#adding tax column
+alter table employee_payroll 
+add tax Double not null after taxable_pay;
+
+update employee_payroll set tax = 10000.00
+where name = 'Bill';
+
+update employee_payroll set tax = 20000.00
+where name = 'Terisa';
+
+update employee_payroll set tax = 30000.00
+where name = 'Charlie';
+  
+#adding net_pay column
+alter table employee_payroll add net_pay Double not null after tax;
+
+update employee_payroll set net_pay = basic_pay-deductions-taxable_pay-tax
+where name = 'Bill';
+
+update employee_payroll set net_pay = basic_pay-deductions-taxable_pay-tax
+where name = 'Terisa';
+
+update employee_payroll set net_pay = basic_pay-deductions-taxable_pay-tax
+where name = 'Charlie';
+
+#modifying column positions in the table
+alter table employee_payroll modify phonenumber varchar(45) after name;
+alter table employee_payroll modify address varchar(200) after phonenumber;
+
+
 
 
 
